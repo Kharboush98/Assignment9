@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    background-color: white;
+}
+
+.nav{
+    padding: 16px 24px;
+}
+
+body{
+    background-color: #FFFBEA;
+}

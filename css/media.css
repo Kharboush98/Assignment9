@@ -1,0 +1,27 @@
+@media screen and (max-width: 1200px) {
+
+}
+
+@media screen and (max-width: 992px) {
+    #Hero .left{
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 0px;
+
+    }
+
+    #Hero .right{
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 0px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    
+}
+
+@media screen and (max-width: 576px) {
+
+}
