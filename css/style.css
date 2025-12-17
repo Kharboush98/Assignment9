@@ -2,16 +2,95 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-.navbar{
-    background-color: white;
-}
-
-.nav{
-    padding: 16px 24px;
+    font-family: "BBH Bartle";
 }
 
 body{
-    background-color: #FFFBEA;
+    background-color: #F1F6FC;
+    height: 5000px;
+}
+
+#Navbar .navbar{
+    background-color: #ffffff;
+    position: fixed;
+    backdrop-filter: blur(10px);
+}
+
+#Navbar.nav{
+    padding: 16px 24px;
+}
+
+#Navbar .title{
+    .icon{
+        width: 44px;
+        height: 44px;
+        border-radius: 15px;
+        background: linear-gradient(to right,#7A27FD , #5B35F8);
+        
+        i{
+            font-size: 18px;
+            color: white;
+        }
+    }
+
+    h4{
+        font-size: 24px;
+        color: black;
+    }
+
+    span{
+        font-size: 24px;
+        color: #7F22FE;
+    }
+
+    p{
+        font-size: 12px;
+        color: #828896;
+    }
+}
+
+#Navbar .info-nav{
+    button{
+        padding: 10px 20px;
+        border-radius: 15px;
+        background: linear-gradient(to right,#7A27FD , #5B35F8);
+        border: none;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .iconbox{
+        width: 40px;
+        height: 40px;
+        border-radius: 15px;
+        overflow: hidden;
+        color: grey;
+        background-color: #82889600;
+
+        transition: 0.3s all;
+
+        i{
+            font-size: 16px;
+            background-color: transparent;
+        }
+
+    } :hover{
+        color: #364153;
+        background-color: #8288967e;
+    }
+
+    .userpic{
+        width: 40px;
+        height: 40px;
+        border-radius: 15px;
+        background-color: grey;
+
+        img{
+            width: auto;
+            height: 100%;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+    }
 }
