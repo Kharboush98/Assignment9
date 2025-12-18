@@ -16,7 +16,6 @@
 
 </head>
 <body>
-
     <section id="Navbar">
         <nav class="navbar navbar-expand-lg fixed-top p-0 border-bottom border-secondary-subtle">
             <div class="container py-3"> 
@@ -32,7 +31,7 @@
 
 
                 <div class="info-nav d-flex justify-content-center align-items-center column-gap-2">
-                    <button>+ Add Contact</button>
+                    <button class="addbtn" data-bs-toggle="modal" data-bs-target="#addContactModal">+ Add Contact</button>
                     <div class="iconbox d-flex justify-content-center align-items-center">
                         <i class="fa-solid fa-bell"></i>
                     </div>
@@ -46,6 +45,97 @@
             </div>
         </nav>
     </section>
+
+    <div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add new contact</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="addprofile d-flex justify-content-center align-items-center flex-column row-gap-2">
+                        <div class="imgholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <button class="changeimg">
+                            <i class="fa-solid fa-camera"></i>
+                            Change Photo
+                        </button>
+                    </div>
+
+                    <div class="name mb-4">
+                        <label for="fullname" class="form-label">First name <span>*</span></label>
+                        <input type="text" class="form-control" id="fullname" placeholder="Enter Full name">
+                    </div>
+
+                    <div class="number mb-4">
+                        <label for="number" class="form-label">Phone number <span>*</span></label>
+                        <input type="text" class="form-control" id="number" placeholder="e.g., 01012345678">
+                    </div>
+
+                    <div class="email mb-4">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+
+                    <div class="address mb-4">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter address">
+                    </div>
+
+                    <div class="group mb-4">
+                        <label for="group" class="form-label">Primary Interest</label>
+                        <select class="form-control" aria-label="Default select example">
+                            <option selected>Select a group</option>
+                            <option value="1">Family</option>
+                            <option value="2">Friends</option>
+                            <option value="3">Work</option>
+                            <option value="4">School</option>
+                            <option value="4">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="notes mb-4">
+                        <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Add notes about this contact"></textarea>
+                    </div>
+
+                    <div class="markcontact mb-4 d-flex justify-content-start align-items-center flex-row column-gap-4">
+                        <div class="favMark">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                <label class="form-check-label" for="checkDefault">
+                                    <i class="fa-solid fa-star"></i>
+                                    Favorite
+                                </label>
+                            </div>
+                        </div>
+                        <div class="emMark">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkDefault">
+                                <label class="form-check-label" for="checkDefault">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                    Emergency
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-group d-flex justify-content-center align-items-center flex-row column-gap-2">
+                        <button class="cancelBtn">Cancel</button>
+                        <button class="saveBtn">Save Contact</button>
+                    </div>
+                </div>
+                
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
 
 
     <section id="Main" class="container">
@@ -159,10 +249,14 @@
                         <div class="actions">
                             <div class="left">
                                 <div class="icon callIcon">
-                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </a>
                                 </div>
                                 <div class="icon msgIcon">
-                                    <i class="fa-solid fa-envelope"></i>
+                                    <a href="mailto:">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </a>
                                 </div>
                             </div>
 
@@ -186,7 +280,7 @@
                                 </div>
 
                                 <div class="editIcon">
-                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#addContactModal"></i>
                                 </div>
 
                                 <div class="deleteIcon">
@@ -242,7 +336,9 @@
                             </div>
 
                             <div class="call">
-                                <i class="fa-solid fa-phone"></i>
+                                <a href="tel:">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -274,18 +370,16 @@
                             </div>
 
                             <div class="call">
-                                <i class="fa-solid fa-phone"></i>
+                                <a href="tel:">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
                             </div>
                         </div>
-
-                        
                     </div>
                 </div>
+
             </div>
         </div>
-
-        
-
     </section>
     
 
