@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="name mb-4">
-                        <label for="fullname" class="form-label">First name <span>*</span></label>
+                        <label for="fullname" class="form-label">Full name <span>*</span></label>
                         <input type="text" class="form-control" id="fullname" placeholder="Enter Full name">
                     </div>
 
@@ -87,26 +87,26 @@
 
                     <div class="group mb-4">
                         <label for="group" class="form-label">Primary Interest</label>
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>Select a group</option>
-                            <option value="1">Family</option>
-                            <option value="2">Friends</option>
-                            <option value="3">Work</option>
-                            <option value="4">School</option>
-                            <option value="4">Others</option>
+                        <select id="groupCat" class="form-control" aria-label="Default select example">
+                            <option selected="Select a group">Select a group</option>
+                            <option value="Family">Family</option>
+                            <option value="Friends">Friends</option>
+                            <option value="Work">Work</option>
+                            <option value="School">School</option>
+                            <option value="Others">Others</option>
                         </select>
                     </div>
 
                     <div class="notes mb-4">
-                        <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Add notes about this contact"></textarea>
+                        <label for="contactInfo" class="form-label">Message</label>
+                        <textarea class="form-control" id="contactInfo" rows="2" placeholder="Add notes about this contact"></textarea>
                     </div>
 
                     <div class="markcontact mb-4 d-flex justify-content-start align-items-center flex-row column-gap-4">
                         <div class="favMark">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-                                <label class="form-check-label" for="checkDefault">
+                                <input class="form-check-input" type="checkbox" value="fav" id="favCheck">
+                                <label class="form-check-label" for="favCheck">
                                     <i class="fa-solid fa-star"></i>
                                     Favorite
                                 </label>
@@ -114,8 +114,8 @@
                         </div>
                         <div class="emMark">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-                                <label class="form-check-label" for="checkDefault">
+                                <input class="form-check-input" type="checkbox" value="emergency" id="emCheck">
+                                <label class="form-check-label" for="emCheck">
                                     <i class="fa-solid fa-heart-pulse"></i>
                                     Emergency
                                 </label>
@@ -125,7 +125,7 @@
 
                     <div class="buttons-group d-flex justify-content-center align-items-center flex-row column-gap-2">
                         <button class="cancelBtn">Cancel</button>
-                        <button class="saveBtn">Save Contact</button>
+                        <button id="addContactBtn" class="saveBtn">Save Contact</button>
                     </div>
                 </div>
                 
@@ -137,6 +137,91 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editContactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add new contact</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="addprofile d-flex justify-content-center align-items-center flex-column row-gap-2">
+                        <div class="imgholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <button class="changeimg">
+                            <i class="fa-solid fa-camera"></i>
+                            Change Photo
+                        </button>
+                    </div>
+
+                    <div class="name mb-4">
+                        <label for="fullname" class="form-label">Full name <span>*</span></label>
+                        <input type="text" class="form-control" id="fullname" placeholder="Enter Full name">
+                    </div>
+
+                    <div class="number mb-4">
+                        <label for="number" class="form-label">Phone number <span>*</span></label>
+                        <input type="text" class="form-control" id="number" placeholder="e.g., 01012345678">
+                    </div>
+
+                    <div class="email mb-4">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+
+                    <div class="address mb-4">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter address">
+                    </div>
+
+                    <div class="group mb-4">
+                        <label for="group" class="form-label">Primary Interest</label>
+                        <select id="groupCat" class="form-control" aria-label="Default select example">
+                            <option selected="Select a group">Select a group</option>
+                            <option value="Family">Family</option>
+                            <option value="Friends">Friends</option>
+                            <option value="Work">Work</option>
+                            <option value="School">School</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="notes mb-4">
+                        <label for="contactInfo" class="form-label">Message</label>
+                        <textarea class="form-control" id="contactInfo" rows="2" placeholder="Add notes about this contact"></textarea>
+                    </div>
+
+                    <div class="markcontact mb-4 d-flex justify-content-start align-items-center flex-row column-gap-4">
+                        <div class="favMark">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="fav" id="favCheck">
+                                <label class="form-check-label" for="favCheck">
+                                    <i class="fa-solid fa-star"></i>
+                                    Favorite
+                                </label>
+                            </div>
+                        </div>
+                        <div class="emMark">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="emergency" id="emCheck">
+                                <label class="form-check-label" for="emCheck">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                    Emergency
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-group d-flex justify-content-center align-items-center flex-row column-gap-2">
+                        <button class="cancelBtn">Cancel</button>
+                        <button id="editContactBtn" class="saveBtn">Edit Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="Main" class="container">
         <div class="statsContainer mb-5">
@@ -147,7 +232,7 @@
 
                 <div class="details">
                     <p>Total</p>
-                    <h5>6</h5>
+                    <h5 id="totalContacts">6</h5>
                 </div>
             </div>
             <div class="stat">
@@ -157,7 +242,7 @@
 
                 <div class="details">
                     <p>Favorites</p>
-                    <h5>3</h5>
+                    <h5 id="totalFavContacts">3</h5>
                 </div>
             </div>
             <div class="stat">
@@ -167,7 +252,7 @@
 
                 <div class="details">
                     <p>Emergency</p>
-                    <h5>4</h5>
+                    <h5 id="totalEmContacts">4</h5>
                 </div>
             </div>            
         </div>
@@ -189,19 +274,20 @@
                     </div>
                 </div>
 
-                <div class="contactCards">
-                    <div class="card">
+                <!-- --------------Cards----------------- -->
+                <div id="ContactCardHolder" class="contactCards">
+                    <!-- <div class="card">
                         <div class="content">
                             <div class="header mb-3">
                                 <div class="pic">
                                     <div class="profile">
-                                        <span>N</span>
+                                        <span id="firstletter">N</span>
                                     </div>
 
-                                    <div class="fav">
+                                    <div id="FavCardIcon" class="fav">
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <div class="emergency">
+                                    <div id="EmCardIcon" class="emergency">
                                         <i class="fa-solid fa-heart-pulse"></i>
                                     </div>
                                 </div>
@@ -288,24 +374,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="content">
-
-                        </div>
-                        <div class="actions">
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="content">
-
-                        </div>
-                        <div class="actions">
-
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
