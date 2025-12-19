@@ -94,7 +94,7 @@ function addContact(){
 
 addContactBtn.addEventListener("click", function(){
     addContact();
-    clearForm();
+    // clearForm();
     // document.querySelector("#addContactModal .btn-close").click();
 });
 
@@ -145,116 +145,123 @@ function displayTotalNumbers(cList)
 
 function displayContactCard(cList)
 {
-    box = "";
-    for(var i = 0 ; i < cList.length ; i++ )
+    if(cList.length > 0)
     {
-        box += 
-        `
-            <div class="card">
-                <div class="content">
-                    <div class="header mb-3">
-                        <div class="pic">
-                            <div class="profile">
-                                <span id="firstletter">${cList[i].fullname.slice(0, 1).toUpperCase()}</span>
-                            </div>
-
-                            <div id="FavCardIcon" class="fav ${cList[i].favCheck ? '' : 'd-none'}">
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-
-                            <div id="EmCardIcon" class="emergency ${cList[i].emCheck ? '' : 'd-none'}">
-                                <i class="fa-solid fa-heart-pulse"></i>
-                            </div>
-                        </div>
-
-                        <div class="mainInfo">
-                            <h3>${cList[i].fullname}</h3>
-                            <div class="iconTag">
-                                <div class="callTag">
-                                    <i class="fa-solid fa-phone"></i>
+        box = "";
+        for(var i = 0 ; i < cList.length ; i++ )
+        {
+            box += 
+            `
+                <div class="card">
+                    <div class="content">
+                        <div class="header mb-3">
+                            <div class="pic">
+                                <div class="profile">
+                                    <span id="firstletter">${cList[i].fullname.slice(0, 1).toUpperCase()}</span>
                                 </div>
-                                <p>${cList[i].number}</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="otherInfo ${cList[i].email === '' &&  cList[i].address === '' ? 'd-none' : 'mb-3'}">
-                        <div class="iconTag ${cList[i].email === '' ? 'd-none' : 'mb-2'}">
-                            <div class="msgTag">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <p>${cList[i].email}</p>
-                        </div>
 
-                        <div class="iconTag ${cList[i].address === '' ? 'd-none' : ''}">
-                            <div class="locationTag">
-                                <i class="fa-solid fa-location-dot"></i>
+                                <div id="FavCardIcon" class="fav ${cList[i].favCheck ? '' : 'd-none'}">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+
+                                <div id="EmCardIcon" class="emergency ${cList[i].emCheck ? '' : 'd-none'}">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                </div>
                             </div>
-                            <p>${cList[i].address}</p>
+
+                            <div class="mainInfo">
+                                <h3>${cList[i].fullname}</h3>
+                                <div class="iconTag">
+                                    <div class="callTag">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <p>${cList[i].number}</p>
+                                </div>
+                            </div>
                         </div>
                         
-                    </div>
-                    
-                    <div class="infoTags d-flex justify-content-start align-items-center flex-wrap column-gap-2">
-                        <div class="family-tag ${cList[i].groupCat === '' ? 'd-none' : ''}">
-                            ${cList[i].groupCat === "" ? "" : cList[i].groupCat}
-                        </div>
-
-                        <div id="EmergencyCatTag" class="emergency-tag ${cList[i].EmergencyCatTag ? '' : 'd-none'}">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                            Emergency
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="actions">
-                    <div class="left">
-                        <div class="icon callIcon">
-                            <a href="tel:">
-                                <i class="fa-solid fa-phone"></i>
-                            </a>
-                        </div>
-                        <div class="icon msgIcon">
-                            <a href="mailto:">
-                                <i class="fa-solid fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="right">
-                        <div class="favIcon">
-                            <div onclick="AddFavorite(${i})" class="unmarked ${cList[i].favCheck ? 'd-none' : ''}">
-                                <i class="fa-regular fa-star"></i>
+                        <div class="otherInfo ${cList[i].email === '' &&  cList[i].address === '' ? 'd-none' : 'mb-3'}">
+                            <div class="iconTag ${cList[i].email === '' ? 'd-none' : 'mb-2'}">
+                                <div class="msgTag">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <p>${cList[i].email}</p>
                             </div>
-                            <div onclick="RemoveFavorite(${i})" class="marked ${cList[i].favCheck ? '' : 'd-none'}">
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
 
-                        <div class="emergencyIcon">
-                            <div onclick="AddEmergenceyContact(${i})" class="unmarked ${cList[i].emCheck ? 'd-none' : ''}">
-                                <i class="fa-regular fa-heart"></i>
+                            <div class="iconTag ${cList[i].address === '' ? 'd-none' : ''}">
+                                <div class="locationTag">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <p>${cList[i].address}</p>
                             </div>
-                            <div onclick="RemoveEmergenceyContact(${i})" class="marked ${cList[i].emCheck ? '' : 'd-none'}">
+                            
+                        </div>
+                        
+                        <div class="infoTags d-flex justify-content-start align-items-center flex-wrap column-gap-2">
+                            <div class="family-tag ${cList[i].groupCat === '' ? 'd-none' : ''}">
+                                ${cList[i].groupCat === "" ? "" : cList[i].groupCat}
+                            </div>
+
+                            <div id="EmergencyCatTag" class="emergency-tag ${cList[i].EmergencyCatTag ? '' : 'd-none'}">
                                 <i class="fa-solid fa-heart-pulse"></i>
+                                Emergency
                             </div>
                         </div>
 
-                        <div id="editBtn" onclick="setFormToUpdate(${i})" class="editIcon">
-                            <i class="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#editContactModal"></i>
+                    </div>
+
+                    <div class="actions">
+                        <div class="left">
+                            <div class="icon callIcon">
+                                <a href="tel:">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                            <div class="icon msgIcon">
+                                <a href="mailto:">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                            </div>
                         </div>
 
-                        <div class="deleteIcon" onclick="deleteProduct(${i})">
-                            <i class="fa-solid fa-trash"></i>
+                        <div class="right">
+                            <div class="favIcon">
+                                <div onclick="AddFavorite(${i})" class="unmarked ${cList[i].favCheck ? 'd-none' : ''}">
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                                <div onclick="RemoveFavorite(${i})" class="marked ${cList[i].favCheck ? '' : 'd-none'}">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+
+                            <div class="emergencyIcon">
+                                <div onclick="AddEmergenceyContact(${i})" class="unmarked ${cList[i].emCheck ? 'd-none' : ''}">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div onclick="RemoveEmergenceyContact(${i})" class="marked ${cList[i].emCheck ? '' : 'd-none'}">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                </div>
+                            </div>
+
+                            <div id="editBtn" onclick="setFormToUpdate(${i})" class="editIcon">
+                                <i class="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#editContactModal"></i>
+                            </div>
+
+                            <div class="deleteIcon" onclick="deleteProduct(${i})">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        ContactCardHolder.innerHTML = box;
+            ContactCardHolder.innerHTML = box;
+        }
     }
+    else{
+        ContactCardHolder.innerHTML = `<tr><td colspan="7" class="text-center text-danger">No Search found</td></tr>`
+    }
+
 }
 
 function displayFav(cList){
@@ -381,15 +388,23 @@ function searchOnContacts(){
     console.log(search.value);
     var searchList = [];
 
-    for(var i=0 ; i < contactList.length; i++){
-        if(contactList[i].fullname.toLowerCase().includes(searchVal)
-        || contactList[i].number.toLowerCase().includes(searchVal)
-        || contactList[i].email.toLowerCase().includes(searchVal))
+    for(var i=0 ; i < contactList.length; i++)
+    {
+        if(contactList[i].fullname.toLowerCase().includes(searchVal))
         {
             searchList.push(contactList[i]);
         }  
 
         displayAllContactInfo(searchList);
+
+        // if(contactList[i].fullname.toLowerCase().includes(searchVal)
+        // || contactList[i].number.toLowerCase().includes(searchVal)
+        // || contactList[i].email.toLowerCase().includes(searchVal))
+        // {
+        //     searchList.push(contactList[i]);
+        // }  
+
+        // displayAllContactInfo(searchList);
     }
 }
 
