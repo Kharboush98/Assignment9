@@ -64,7 +64,7 @@ var globalIndex;
 
 function addContact(){
 
-    if(ValidateNumber() && ValidateEmail() && EmptyFieldValidation()){
+    if(ValidateName() && ValidateNumber() && ValidateEmail()){
         var contact = {
             fullname : fullname.value,
             number : number.value,
@@ -81,7 +81,9 @@ function addContact(){
         // console.log(contactList);
         displayAllContactInfo(contactList);
         clearForm();
-        saveToLocalStorage(contactList)
+        saveToLocalStorage(contactList);
+        document.querySelector("#addContactModal .btn-close").click();
+
     } else {
         console.log("Validation Error");
     }
@@ -93,8 +95,7 @@ function addContact(){
 addContactBtn.addEventListener("click", function(){
     addContact();
     clearForm();
-
-    document.querySelector("#addContactModal .btn-close").click();
+    // document.querySelector("#addContactModal .btn-close").click();
 });
 
 cancelContactBtn.addEventListener("click", function(){
@@ -353,10 +354,13 @@ function updateProduct()
 }
 
 editContactBtn.addEventListener("click", function(){
-    updateProduct();
-    clearForm();
 
-    document.querySelector("#editContactModal .btn-close").click();
+    if(ValidateUpdatedInfo())
+    {
+        updateProduct();
+        clearForm();
+        document.querySelector("#editContactModal .btn-close").click();
+    }
 });
 
 editcancelContactBtn.addEventListener("click", function(){
@@ -398,8 +402,14 @@ function ValidateNumber()
         return true;
 
     } else {
-        console.log("no match num");
-        return false;
+        // console.log("no match num");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Number",
+            text: "Please enter a Number for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
     }
 }
 
@@ -412,33 +422,88 @@ function ValidateEmail()
         return true;
 
     } else {
-        console.log("no match email");
-        return false;
+        // console.log("no match email");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Email",
+            text: "Please enter a Email for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
     }
 }
 
-function EmptyFieldValidation()
+function ValidateName()
 {
-    if(fullname.value === "")
+    // var Regex = /^[a-zA-Z]+ (a-zA-Z)?+ (a-zA-Z)+?$/
+    var Regex = /^[A-Za-z]+( [A-Za-z]+){0,2}$/
+    if(Regex.test(fullname.value))
     {
-        //Show eror
-        console.log("no match empty name");
-        return false;
+        console.log("match name");
+        return true;
+
+    } else {
+        // console.log("no match name");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Name",
+            text: "Please enter a Name for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
+    }
+}
+
+function ValidateUpdatedInfo()
+{
+    var RegexNum = /^(002)?01[0125][0-9]{8}$/
+    if(RegexNum.test(editnumber.value))
+    {
+        console.log("match num");
+        return true;
+
+    } else {
+        // console.log("no match num");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Number",
+            text: "Please enter a Number for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
     }
 
-    if(number.value === "")
+    var RegexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/
+    if(RegexEmail.test(editemail.value))
     {
-        //show error
-        console.log("no match empty number");
-        return false;
+        console.log("match email");
+        return true;
+
+    } else {
+        // console.log("no match email");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Email",
+            text: "Please enter a Email for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
     }
 
-    if(email.value === "")
+    var RegexName = /^[A-Za-z]+( [A-Za-z]+){0,2}$/
+    if(RegexName.test(editfullname.value))
     {
-        //show error
-        console.log("no match empty email");
-        return false;
-    }
+        console.log("match name");
+        return true;
 
-    return true;
+    } else {
+        // console.log("no match name");
+        // return false;
+        Swal.fire({
+            icon: "error",
+            title: "Incorrect Name",
+            text: "Please enter a Name for the contact!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+        });
+    }
 }
