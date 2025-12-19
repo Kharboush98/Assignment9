@@ -61,23 +61,30 @@ var globalIndex;
 
 
 function addContact(){
-    var contact = {
-        fullname : fullname.value,
-        number : number.value,
-        email : email.value,
-        address : address.value,
-        groupCat : groupCat.value,
-        contactInfo : contactInfo.value,
-        favCheck : favCheck.checked,
-        emCheck : emCheck.checked,
+
+    if(ValidateNumber() && ValidateEmail() && EmptyFieldValidation()){
+        var contact = {
+            fullname : fullname.value,
+            number : number.value,
+            email : email.value,
+            address : address.value,
+            groupCat : groupCat.value,
+            contactInfo : contactInfo.value,
+            favCheck : favCheck.checked,
+            emCheck : emCheck.checked,
+        }
+
+        // console.log(contact);
+        contactList.push(contact);
+        // console.log(contactList);
+        displayAllContactInfo(contactList);
+        clearForm();
+        saveToLocalStorage(contactList)
+    } else {
+        console.log("Validation Error");
     }
 
-    // console.log(contact);
-    contactList.push(contact);
-    // console.log(contactList);
-    displayAllContactInfo(contactList);
-    clearForm();
-    saveToLocalStorage(contactList)
+    
 }
 
 
@@ -234,7 +241,7 @@ function displayContactCard(cList)
                             <i class="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#editContactModal"></i>
                         </div>
 
-                        <div class="deleteIcon">
+                        <div class="deleteIcon" onclick="deleteProduct(${i})">
                             <i class="fa-solid fa-trash"></i>
                         </div>
                     </div>
@@ -288,17 +295,76 @@ editcancelContactBtn.addEventListener("click", function(){
     document.querySelector("#editContactModal .btn-close").click();
 });
 
+function deleteProduct(index){
+    contactList.splice(index ,1);
+    // console.log(contactList.length);
+    
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
+}
+
 function searchOnContacts(){
     var searchVal = search.value.toLowerCase();
     console.log(search.value);
     var searchList = [];
 
     for(var i=0 ; i < contactList.length; i++){
-        if(contactList[i].fullname.toLowerCase().includes(searchVal))
+        if(contactList[i].fullname.toLowerCase().includes(searchVal)
+        || contactList[i].number.toLowerCase().includes(searchVal)
+        || contactList[i].email.toLowerCase().includes(searchVal))
         {
             searchList.push(contactList[i]);
         }  
 
         displayAllContactInfo(searchList);
+    }
+}
+
+function ValidateNumber()
+{
+    var Regex = /^(002)?01[0125][0-9]{8}$/
+    if(Regex.test(number.value))
+    {
+        console.log("match");
+        return true;
+
+    } else {
+        console.log("no match");
+        return false;
+    }
+}
+
+function ValidateEmail()
+{
+    var Regex = /^[a-zA-Z0-9._]+ @[a-zA-Z0-9]+ \.[a-zA-Z]{2,}$/
+    if(Regex.test(email.value))
+    {
+        console.log("match");
+        return true;
+
+    } else {
+        console.log("no match");
+        return false;
+    }
+}
+
+function EmptyFieldValidation()
+{
+    if(fullname.value === "")
+    {
+        //Show eror
+        return false;
+    }
+
+    if(number.value === "")
+    {
+        //show error
+        return false;
+    }
+
+    if(email.value === "")
+    {
+        //show error
+        return false;
     }
 }
