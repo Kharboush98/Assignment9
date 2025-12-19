@@ -124,15 +124,10 @@
                     </div>
 
                     <div class="buttons-group d-flex justify-content-center align-items-center flex-row column-gap-2">
-                        <button class="cancelBtn">Cancel</button>
+                        <button id="cancelContactBtn" class="cancelBtn">Cancel</button>
                         <button id="addContactBtn" class="saveBtn">Save Contact</button>
                     </div>
                 </div>
-                
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </div>
@@ -215,7 +210,7 @@
                     </div>
 
                     <div class="buttons-group d-flex justify-content-center align-items-center flex-row column-gap-2">
-                        <button class="editcancelBtn">Cancel</button>
+                        <button id="editcancelContactBtn" class="editcancelBtn">Cancel</button>
                         <button id="editContactBtn" class="saveBtn">Edit Contact</button>
                     </div>
                 </div>
@@ -270,7 +265,7 @@
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Search by name, phone or email..." aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="search" oninput="searchOnContacts()" type="text" class="form-control" placeholder="Search by name, phone or email..." aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
 

@@ -1,5 +1,11 @@
 var addContactBtn = document.getElementById("addContactBtn");
+var cancelContactBtn = document.getElementById("cancelContactBtn");
+
 var editContactBtn = document.getElementById("editContactBtn");
+var editcancelContactBtn = document.getElementById("editcancelContactBtn");
+
+var addContactModal = document.querySelector("#addContactModal");
+var editContactModal = document.querySelector("#editContactModal");
 
 // contact
 var fullname = document.getElementById("fullname");
@@ -8,13 +14,25 @@ var email = document.getElementById("email");
 var address = document.getElementById("address");
 var groupCat = document.getElementById("groupCat");
 var contactInfo = document.getElementById("contactInfo");
-var favCheck = document.getElementById("favCheck");
-var emCheck = document.getElementById("emCheck");
+var favCheck = document.querySelector("#favCheck");
+var emCheck = document.querySelector("#emCheck");
+
+var editfullname = document.getElementById("editfullname");
+var editnumber = document.getElementById("editnumber");
+var editemail = document.getElementById("editemail");
+var editaddress = document.getElementById("editaddress");
+var editgroupCat = document.getElementById("editgroupCat");
+var editcontactInfo = document.getElementById("editcontactInfo");
+var editfavCheck = document.getElementById("editfavCheck");
+var editemCheck = document.getElementById("editemCheck");
 
 //Totals
 var totalContacts = document.getElementById("totalContacts");
 var totalFavContacts = document.getElementById("totalFavContacts");
-var totalContotalEmContactstacts = document.getElementById("totalEmContacts");
+var totalEmContacts = document.getElementById("totalEmContacts");
+
+//Search bar
+var search = document.getElementById("search");
 
 // Contact Card
 var ContactCardHolder = document.getElementById("ContactCardHolder");
@@ -23,46 +41,57 @@ var FavCardIcon = document.getElementById("FavCardIcon");
 var EmCardIcon = document.getElementById("EmCardIcon");
 var EmergencyCatTag = document.getElementById("EmergencyCatTag");
 
-// var editBtn;
-
-var cList = [];
+var editBtn = document.getElementById("editBtn");
 
 
-var AllFav = 0;
-var AllEm = 0;
+var contactList;
+if(localStorage.getItem("contactList")){
+    contactList = JSON.parse(localStorage.getItem("contactList"));
+    displayAllContactInfo(contactList);
 
-// if(localStorage.getItem("contactList")){
-//     cList = JSON.parse(localStorage.getItem("contactList"));
-//     displayProducts(productList);
-// }else{
-//     cList = [];
-// }
+} else {
+    contactList = [];
+}
+
+function saveToLocalStorage(cList){
+    localStorage.setItem("contactList" , JSON.stringify(cList))
+}
+
+var globalIndex;
 
 
 function addContact(){
-
     var contact = {
-        id: 0,
         fullname : fullname.value,
         number : number.value,
         email : email.value,
         address : address.value,
         groupCat : groupCat.value,
         contactInfo : contactInfo.value,
-        favCheck : favCheck.value,
-        emCheck : emCheck.value,
+        favCheck : favCheck.checked,
+        emCheck : emCheck.checked,
     }
 
     // console.log(contact);
-    cList.push(contact);
-    displayAllContactInfo(cList);
+    contactList.push(contact);
+    // console.log(contactList);
+    displayAllContactInfo(contactList);
     clearForm();
-    // `saveToLocalStorage`(productList);
+    saveToLocalStorage(contactList)
 }
 
-function saveToLocalStorage(cList){
-    localStorage.setItem("contactList" , JSON.stringify(cList))
-}
+
+addContactBtn.addEventListener("click", function(){
+    addContact();
+    clearForm();
+
+    document.querySelector("#addContactModal .btn-close").click();
+});
+
+cancelContactBtn.addEventListener("click", function(){
+    clearForm();
+    document.querySelector("#addContactModal .btn-close").click();
+})
 
 function clearForm() {
     fullname.value = "";
@@ -71,8 +100,8 @@ function clearForm() {
     address.value = "";
     groupCat.value = "";
     contactInfo.value = "";
-    favCheck.value = "";
-    emCheck.value = "";
+    favCheck.checked = false;
+    emCheck.checked = false;
 }
 
 function displayAllContactInfo(cList){
@@ -83,7 +112,24 @@ function displayAllContactInfo(cList){
 
 function displayTotalNumbers(cList)
 {
+    let AllFav = 0;
+    let AllEm = 0;
+
     totalContacts.innerHTML = cList.length;
+
+    for(let i = 0; i < cList.length ; i++){
+        if (cList[i].favCheck) {
+            AllFav++;
+        }
+    }
+    totalFavContacts.innerHTML = AllFav;
+    
+    for(let i = 0; i < cList.length ; i++){
+        if (cList[i].emCheck) {
+            AllEm++;
+        }
+    }
+    totalEmContacts.innerHTML = AllEm;
 }
 
 function displayContactCard(cList)
@@ -101,11 +147,11 @@ function displayContactCard(cList)
                                 <span id="firstletter">${cList[i].fullname.slice(0, 1).toUpperCase()}</span>
                             </div>
 
-                            <div id="FavCardIcon" class="fav">
+                            <div id="FavCardIcon" class="fav ${cList[i].favCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-star"></i>
                             </div>
 
-                            <div id="EmCardIcon" class="emergency">
+                            <div id="EmCardIcon" class="emergency ${cList[i].emCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-heart-pulse"></i>
                             </div>
                         </div>
@@ -121,16 +167,15 @@ function displayContactCard(cList)
                         </div>
                     </div>
                     
-                    <div class="otherInfo mb-3">
-
-                        <div class="iconTag mb-2">
+                    <div class="otherInfo ${cList[i].email === '' &&  cList[i].address === '' ? 'd-none' : 'mb-3'}">
+                        <div class="iconTag ${cList[i].email === '' ? 'd-none' : 'mb-2'}">
                             <div class="msgTag">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
                             <p>${cList[i].email}</p>
                         </div>
 
-                        <div class="iconTag">
+                        <div class="iconTag ${cList[i].address === '' ? 'd-none' : ''}">
                             <div class="locationTag">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
@@ -140,11 +185,11 @@ function displayContactCard(cList)
                     </div>
                     
                     <div class="infoTags d-flex justify-content-start align-items-center flex-wrap column-gap-2">
-                        <div class="family-tag">
-                            ${cList[i].groupCat}
+                        <div class="family-tag ${cList[i].groupCat === '' ? 'd-none' : ''}">
+                            ${cList[i].groupCat === "" ? "" : cList[i].groupCat}
                         </div>
 
-                        <div id="EmergencyCatTag" class="emergency-tag">
+                        <div id="EmergencyCatTag" class="emergency-tag ${cList[i].EmergencyCatTag ? '' : 'd-none'}">
                             <i class="fa-solid fa-heart-pulse"></i>
                             Emergency
                         </div>
@@ -168,24 +213,24 @@ function displayContactCard(cList)
 
                     <div class="right">
                         <div class="favIcon">
-                            <div class="unmarked">
+                            <div class="unmarked ${cList[i].favCheck ? 'd-none' : ''}">
                                 <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="marked d-none">
+                            <div class="marked ${cList[i].favCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-star"></i>
                             </div>
                         </div>
 
                         <div class="emergencyIcon">
-                            <div class="unmarked ">
+                            <div class="unmarked ${cList[i].emCheck ? 'd-none' : ''}">
                                 <i class="fa-regular fa-heart"></i>
                             </div>
-                            <div class="marked d-none">
+                            <div class="marked ${cList[i].emCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-heart-pulse"></i>
                             </div>
                         </div>
 
-                        <div id="editBtn" onclick="updateProduct()" class="editIcon">
+                        <div id="editBtn" onclick="setFormToUpdate(${i})" class="editIcon">
                             <i class="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#editContactModal"></i>
                         </div>
 
@@ -198,57 +243,62 @@ function displayContactCard(cList)
         `;
 
         ContactCardHolder.innerHTML = box;
-
-        // if(cList[i].favCheck === "fav"){
-        //     FavCardIcon.classList.remove("d-none");
-        // } else {
-        //     FavCardIcon.classList.add("d-none");
-        // }
-
-        // if(cList[i].emCheck === "emergency"){
-        //     EmCardIcon.classList.remove("d-none");
-        //     EmergencyCatTag.classList.remove("d-none");
-        // } else {
-        //     EmCardIcon.classList.add("d-none");
-        //     EmergencyCatTag.classList.add("d-none");
-        // }
-
-        
     }
 }
 
-
 function setFormToUpdate(index){
-    fullname.value = cList[index].fullname;
-    number.value = cList[index].number;
-    email.value = cList[index].email;
-    address.value = cList[index].address;
-    groupCat.value = cList[index].groupCat;
-    contactInfo.value = cList[index].contactInfo;
-    favCheck.value = cList[index].favCheck;
-    emCheck.value = cList[index].emCheck;
+    editfullname.value = contactList[index].fullname;
+    editnumber.value = contactList[index].number;
+    editemail.value = contactList[index].email;
+    editaddress.value = contactList[index].address;
+    editgroupCat.value = contactList[index].groupCat;
+    editcontactInfo.value = contactList[index].contactInfo;
+    editfavCheck.value = contactList[index].favCheck;
+    editemCheck.value = contactList[index].emCheck;
 
-    editContactBtn.setAttribute("data-index", index);
+    globalIndex = index;
 }
 
-function updateProduct(){
-    var index = editContactBtn.getAttribute("data-index");
+function updateProduct()
+{
+    contactList[globalIndex].fullname = editfullname.value;
+    contactList[globalIndex].number = editnumber.value;
+    contactList[globalIndex].email = editemail.value;
+    contactList[globalIndex].address = editaddress.value;
+    contactList[globalIndex].groupCat = editgroupCat.value;
+    contactList[globalIndex].contactInfo = editcontactInfo.value;
+    contactList[globalIndex].favCheck = editfavCheck.value;
+    contactList[globalIndex].emCheck = editemCheck.value ;
 
-    cList[index].fullname = fullname.value;
-    cList[index].number = number.value;
-    cList[index].email = email.value;
-    cList[index].address = address.value;
-    cList[index].groupCat = groupCat.value;
-    cList[index].contactInfo = contactInfo.value;
-    cList[index].favCheck = favCheck.value;
-    cList[index].emCheck = emCheck.value ;
-
-    displayProducts(cList);
-    // saveToLocalStorage(cList);
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
 
     clearForm();
 }
 
-addContactBtn.addEventListener("click", addContact);
+editContactBtn.addEventListener("click", function(){
+    updateProduct();
+    clearForm();
 
-editContactBtn.addEventListener("click", updateProduct);
+    document.querySelector("#editContactModal .btn-close").click();
+});
+
+editcancelContactBtn.addEventListener("click", function(){
+    clearForm();
+    document.querySelector("#editContactModal .btn-close").click();
+});
+
+function searchOnContacts(){
+    var searchVal = search.value.toLowerCase();
+    console.log(search.value);
+    var searchList = [];
+
+    for(var i=0 ; i < contactList.length; i++){
+        if(contactList[i].fullname.toLowerCase().includes(searchVal))
+        {
+            searchList.push(contactList[i]);
+        }  
+
+        displayAllContactInfo(searchList);
+    }
+}
