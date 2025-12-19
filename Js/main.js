@@ -224,19 +224,19 @@ function displayContactCard(cList)
 
                     <div class="right">
                         <div class="favIcon">
-                            <div class="unmarked ${cList[i].favCheck ? 'd-none' : ''}">
+                            <div onclick="AddFavorite(${i})" class="unmarked ${cList[i].favCheck ? 'd-none' : ''}">
                                 <i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="marked ${cList[i].favCheck ? '' : 'd-none'}">
+                            <div onclick="RemoveFavorite(${i})" class="marked ${cList[i].favCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-star"></i>
                             </div>
                         </div>
 
                         <div class="emergencyIcon">
-                            <div class="unmarked ${cList[i].emCheck ? 'd-none' : ''}">
+                            <div onclick="AddEmergenceyContact(${i})" class="unmarked ${cList[i].emCheck ? 'd-none' : ''}">
                                 <i class="fa-regular fa-heart"></i>
                             </div>
-                            <div class="marked ${cList[i].emCheck ? '' : 'd-none'}">
+                            <div onclick="RemoveEmergenceyContact(${i})" class="marked ${cList[i].emCheck ? '' : 'd-none'}">
                                 <i class="fa-solid fa-heart-pulse"></i>
                             </div>
                         </div>
@@ -506,4 +506,30 @@ function ValidateUpdatedInfo()
             footer: '<a href="#">Why do I have this issue?</a>'
         });
     }
+}
+
+function AddFavorite(index)
+{
+    contactList[index].favCheck = true;
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
+}
+
+function RemoveFavorite(index){
+    contactList[index].favCheck = false;
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
+}
+
+function AddEmergenceyContact(index)
+{
+    contactList[index].emCheck = true;
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
+}
+
+function RemoveEmergenceyContact(index){
+    contactList[index].emCheck = false;
+    displayAllContactInfo(contactList);
+    saveToLocalStorage(contactList);
 }
