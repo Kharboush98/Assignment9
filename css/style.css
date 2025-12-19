@@ -120,9 +120,9 @@ body.modal-open {
 }
 
 /* Disable modal scrolling */
-.modal{
+/* .modal{
     overflow: hidden;
-}
+} */
 
 .modal .modal-header{
     h1{
@@ -252,7 +252,7 @@ body.modal-open {
         padding: 12px 20px;
         border-radius: 15px;
         border: none;
-        background-color: #F9FAFB;
+        background-color: #d8d8d8;
         color: oklch(37.3% .034 259.733);
         font-size: 14px;
         font-weight: bold;
