@@ -390,21 +390,21 @@ function searchOnContacts(){
 
     for(var i=0 ; i < contactList.length; i++)
     {
-        if(contactList[i].fullname.toLowerCase().includes(searchVal))
-        {
-            searchList.push(contactList[i]);
-        }  
-
-        displayAllContactInfo(searchList);
-
-        // if(contactList[i].fullname.toLowerCase().includes(searchVal)
-        // || contactList[i].number.toLowerCase().includes(searchVal)
-        // || contactList[i].email.toLowerCase().includes(searchVal))
+        // if(contactList[i].fullname.toLowerCase().includes(searchVal))
         // {
         //     searchList.push(contactList[i]);
         // }  
 
         // displayAllContactInfo(searchList);
+
+        if(contactList[i].fullname.toLowerCase().includes(searchVal)
+        || contactList[i].number.toLowerCase().includes(searchVal)
+        || contactList[i].email.toLowerCase().includes(searchVal))
+        {
+            searchList.push(contactList[i]);
+        }  
+
+        displayAllContactInfo(searchList);
     }
 }
 
